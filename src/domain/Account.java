@@ -1,5 +1,8 @@
 package domain;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Account {
 	public final static String BANK_NAME = "비트뱅크";
 	public final static String ACCOUNT_TYPE = "기본통장";
@@ -35,7 +38,7 @@ public class Account {
 	}
 
 	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
+		this.createDate = new SimpleDateFormat("yyyy년 MM월 dd일").format(new Date());
 	}
 
 	public String getName() {
@@ -64,5 +67,8 @@ public class Account {
 
 	public String getCreateDate() {
 		return createDate;
+	}
+	public String toString() {
+		return String.format("%s \n%s \n계좌번호 %s \n이름 : %s \n생성일 : %s \n잔액 : %d원\n" ,BANK_NAME,ACCOUNT_TYPE,accountNum,name,createDate,money);
 	}
 }
