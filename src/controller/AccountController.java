@@ -2,15 +2,22 @@ package controller;
 import javax.swing.JOptionPane;
 import service.*;
 import serviceImpl.*;
+import domain.*;
 enum Butt{
 	EXIT,
 	ACCOUNT,
-	LIST
+	MINUS_ACCOUNT,
+	LIST,
+	FIND_BY_ID,
+	FIND_BY_NAME,
+	MINUS_LIST,
+	DEPOSIT,
+	WITHDRAW
 ;}
 public class AccountController {
 	public static void main(String[] args) {
-		
 		AccountService service= new AccountServiceImpl();
+		AccountBean account=null;
 		while(true) {
 			switch((Butt) JOptionPane.showInputDialog(null,
 					"MAIN PAGE",
@@ -20,18 +27,51 @@ public class AccountController {
 					new Butt[] {
 						Butt.EXIT,
 						Butt.ACCOUNT,
-						Butt.LIST},
+						Butt.MINUS_ACCOUNT,
+						Butt.LIST,
+						Butt.FIND_BY_ID,
+						Butt.FIND_BY_NAME,
+						Butt.MINUS_LIST,
+						Butt.DEPOSIT,
+						Butt.WITHDRAW},
 						null)) {
 			case EXIT:
 				return;
 			case ACCOUNT:
-				service.addList(service.createAccount(
-						JOptionPane.showInputDialog("이름"),
-						JOptionPane.showInputDialog("아이디"),
-						JOptionPane.showInputDialog("비밀번호")));
+				account = new AccountBean(); 
+				account.setName(JOptionPane.showInputDialog("이름"));
+				account.setUid(JOptionPane.showInputDialog("아이디"));
+				account.setPass(JOptionPane.showInputDialog("비밀번호"));
+				service.createAccount(account);
+				break;
+			case MINUS_ACCOUNT:
+				account = new MinusAccountBean(); 
+				account.setName(JOptionPane.showInputDialog("이름"));
+				account.setUid(JOptionPane.showInputDialog("아이디"));
+				account.setPass(JOptionPane.showInputDialog("비밀번호"));
+				((MinusAccountBean) account).setLimit(Integer.parseInt(JOptionPane.showInputDialog("대출한도")));
+				service.createAccount(account);
 				break;
 			case LIST:
-				JOptionPane.showMessageDialog(null,service.showResult());
+				JOptionPane.showMessageDialog(null,service.list());
+				break;
+			case DEPOSIT:
+				break;
+			case WITHDRAW:
+				break;
+			case FIND_BY_ID:
+				account = new AccountBean();
+				account.setUid(JOptionPane.showInputDialog("아이디"));
+				account.setPass(JOptionPane.showInputDialog("비밀번호"));
+				JOptionPane.showMessageDialog(null, service.findById(account));
+				break;
+			case FIND_BY_NAME:
+				JOptionPane.showMessageDialog(null, service.findByName(JOptionPane.showInputDialog("이름")));
+				break;
+			case MINUS_LIST:
+				JOptionPane.showMessageDialog(null, service.findByMinusAccount(MinusAccountBean.ACCOUNT_TYPE)); 
+				break;
+			default:
 				break;
 			}
 		}
