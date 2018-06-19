@@ -14,4 +14,6 @@ public interface AccountService {
 	public int countSameWord(String word);
 	public AccountBean[] findByMinusAccount(String type);
 	public int countSameType(String type);
+	public String changePass(AccountBean account);
+	public String deleteAccount(AccountBean account);
 }

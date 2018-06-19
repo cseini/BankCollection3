@@ -61,6 +61,6 @@ public class AccountBean {
 		return createDate;
 	}
 	public String toString() {
-		return String.format("%s \n%s \n계좌번호 %s \n이름 : %s \nid : %s\n pw:**** \n생성일 : %s \n잔액 : %d원\n" ,BANK_NAME,accountType,accountNum,name,uid,createDate,money);
+		return String.format("%s \n%s \n계좌번호 %s \n이름 : %s \nid : %s\npw:**** \n생성일 : %s \n잔액 : %d원\n" ,BANK_NAME,accountType,accountNum,name,uid,createDate,money);
 	}
 }
